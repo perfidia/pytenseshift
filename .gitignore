@@ -34,5 +34,6 @@ nosetests.xml
 .project
 .pydevproject
 .settings
+.idea
 
 docs/_build
