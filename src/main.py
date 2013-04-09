@@ -5,7 +5,10 @@ Created on Mar 20, 2013
 @author: Bartosz Alchimowicz
 '''
 from pytenseshift import PlPyTenseShift 
+from pytenseshift import EnPyTenseShift
 
-ts = PlPyTenseShift()
+# pl = PlPyTenseShift()
+en = EnPyTenseShift()
 
-print ts.getPastTense("Jadę na rowerze.")
+# print pl.getPastTense("Jadę na rowerze.")
+print en.getPastTense("I am big enthusiast of Python language.")
