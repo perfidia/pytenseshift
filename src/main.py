@@ -8,4 +8,4 @@ from pytenseshift import PlPyTenseShift
 
 ts = PlPyTenseShift()
 
-print ts.getPastTense("Maria, zrobiła obiad.")
+print ts.getPastTense("Jadę na rowerze.")
