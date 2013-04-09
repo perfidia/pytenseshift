@@ -36,4 +36,7 @@ nosetests.xml
 .settings
 .idea
 
+# Temporary files
+andip_tmp*
+
 docs/_build
