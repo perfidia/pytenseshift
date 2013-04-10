@@ -36,6 +36,3 @@ License
 
 PyTenseShift is released under the MIT license. See LICENSE file.
 
-Uwagi
--------
-(Commit - Mateusz Dembski[bez plików]) Testowanie taggowania i tokenizacji w konsoli Pythona. Problem z pl196x, bardzo ma³o dokumentacji i sposobów rozwi¹zania problemu. 
