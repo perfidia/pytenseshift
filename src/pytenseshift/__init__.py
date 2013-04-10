@@ -50,25 +50,46 @@ class EnPyTenseShift(PyTenseShift):
 
         words = self._tokenize(tense)
 
+        for i, (word, form) in enumerate(words):
 
-        for (word, form) in words:
-            if form[0:2] == 'VB' : # VBP VBZ MD
-                # try:
-                #     # en.verb.past(word)
-                #     # en.verb.conjugate()
-                # except KeyError:
-                #     pass
-                # else:
-                #     pass
-                print word, form, self.__en.is_verb(word)
+            if word == 'to' and len(words) > i:
+                words[i + 1] = (words[i + 1][0], "NN")
 
-                # TODO
-                # czasownik po czasowniku - drugi ignored "will not do"
-                # czasownik z "to"
-                # modale ręcznie
-                # nieregularny być - wtedy trzeba
-                # przeczenia 't lub not, nt?
+            if len(form) == 3 and form[0:3] in ['VBZ', 'VBP']:
+                form = "VB" # we care about this kind of verbs
 
-                # formy skrótowe 'm 're 's 'll
+            if form[0:2] == 'MD':
+                form = "VB" # we care about modals
 
-        # return words
+            if form == "VB": # shift to past
+
+                # exceptions
+                exc = {"may" : "might", "will" : "would", "must" : "must", "ought" : "ought"}
+
+                if exc.has_key(word):
+                    word = exc[word]
+                else:
+                    try:
+                        # print en.verb.infinitive(word), en.verb.is_tense(word, "1st singular present",  negated = False), en.verb.is_tense(word, "3rd singular present", negated = False), en.verb.past(word)
+                        if en.verb.infinitive(word) == "be":
+                            if en.verb.is_tense(word, "1st singular present",  negated = False) or en.verb.is_tense(word, "3rd singular present", negated = False):
+                                word = "was"
+                            else:
+                                word = "were"
+                        else:
+                            word = en.verb.past(word)
+                            if len(word) == 0:
+                                raise Exception()
+                    except Exception, KeyError:
+                        raise Exception("Nodebox linguistics does not recognize the verbs.")
+
+            if form == 'VB' and len(words) > i:
+                j = i + 1
+                if words[j][1] == 'RB' and  words[j][0] in ['not', "n't"] and len(words) > j:
+                    j = j + 1
+                words[j] = (words[j][0], "NN")
+
+            words[i] = (word, form)
+
+        return words
+

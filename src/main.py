@@ -11,35 +11,34 @@ from pytenseshift import EnPyTenseShift
 # print pl.getPastTense("Jadę na rowerze.")
 
 
-import en
-
-print en.verb.past("will")
-print en.verb.past("does")
-print en.verb.past("can")
+# import en
+# print en.verb.past("does")
+# print en.verb.past("can")
+# print en.verb.past("have")
+# fail:
+# print en.verb.past("will")
 # print en.verb.past("may")
 # print en.verb.past("must")
-print en.verb.past("have")
 # print en.verb.past("ought")
-
-#
 # print en.verb.past("is", negate=True)
 # print en.verb.past("are", person=1, negate=False)
 # print en.verb.past("are", person=3, negate=False)
 # print en.verb.past("are", person=2, negate=False)
 # print en.verb.past("are")
-#
 # for i in ['swimming', 'making', 'am', 'are', 'fighting', 'was']:
 #     # print i, en.is_verb(i), en.verb.infinitive(i), en.verb.present(i, person=1, negate=True), en.verb.past(i, person="3rd", negate=False)
 #     print en.verb.conjugate(i, "past", negate=False), en.verb.is_tense(i, "1st singular past", negated=False)
 #     # are 1, 2, 3, "1st", "2nd", "3rd", "plural", "*". Just use the one you like most.
-
 # print en.verb.present("gave", person=3, negate=False)
 
 
 
 en = EnPyTenseShift()
-print en.getPastTense("I have to do it.")
-# print en.getPastTense("I am big enthusiast of Python language.")
+# print en.getPastTense("I do not have to do it.")
+# print en.getPastTense("I don't have to do it.")
+# print en.getPastTense("I may do it later.")
+# print en.getPastTense("I have to do it.")
+print en.getPastTense("I am big enthusiast of Python language.")
 # print en.getPastTense("I go out door and play football.")
 # print en.getPastTense("I go to visit my parents.")
 # print en.getPastTense("Ther aren't crazy. They are pretty awesome!")
