@@ -64,7 +64,7 @@ class EnPyTenseShift(PyTenseShift):
             if form == "VB": # shift to past
 
                 # exceptions
-                exc = {"may" : "might", "will" : "would", "must" : "must", "ought" : "ought"}
+                exc = {"may" : "might", "will" : "would", "must" : "must", "ought" : "ought", "shall" : "should"}
 
                 if exc.has_key(word):
                     word = exc[word]
@@ -91,5 +91,11 @@ class EnPyTenseShift(PyTenseShift):
 
             words[i] = (word, form)
 
-        return words
+        result = ""
+        for (word, form) in words:
+            if word not in ["n't", ".", "!", "?"] and word[0] != "'":
+                result += " "
+            result += word;
+
+        return result[1:]
 
