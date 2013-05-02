@@ -10,9 +10,8 @@ from pytenseshift import PlPyTenseShift
 pl = PlPyTenseShift()
 #print pl.getPastTense("Jadę na rowerze.")
 #print pl.getPastTense("Ala ma kota.")
-print pl.getPastTense("Ala ma kota a Marek ma psa")
-print pl.getPastTense("Ja mam rowery")
-
+print pl.getPastTense("Ja mam kota a Marek ma psa")
+print pl.getPastTense("Andrzej, Maciek i Joanna kupują piwo, ser i mleko a Jacek skacze na trampolinie.")
 '''en = EnPyTenseShift()
 print en.getPastTense("I do not have to do it.")
 print en.getPastTense("I don't have to do it.")
