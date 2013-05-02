@@ -9,6 +9,22 @@ from nltk.tokenize import word_tokenize as tokenize
 # from andip.provider import FileProvider, DatabaseProvider, PlWikiProvider
 
 
+class ShiftRule():
+    def shift(self, sentence):
+        raise NotImplementedError("abstract method")
+
+class PlShiftRule1(ShiftRule):
+    def shift(self, sentence):
+        for j, (word, form) in enumerate(sentence):
+            pass # do all the stuff
+        return False
+
+class PlShiftRule2(ShiftRule):
+    def shift(self, sentence):
+        for j, (word, form) in enumerate(sentence):
+            pass # do all the stuff
+        return False
+
 class TaggerInterface():
     
     def tag(self, tense):
@@ -105,6 +121,7 @@ class PlPyTenseShift(PyTenseShift):
     
     def __init__(self):
         PyTenseShift.__init__(self, pl196x)
+        self.shiftRules = {PlShiftRule1(), PlShiftRule2()};
         # ad1 = AnDiP(DatabaseProvider("../andip_tmp"))
         # self._andip = AnDiP(PlWikiProvider(),  backoff = ad1)
     
@@ -124,13 +141,20 @@ class PlPyTenseShift(PyTenseShift):
                 if form['klasa'] == "czasownik":
                     verb_occured = True
                 sentences[current_sentence].append(words[i])
-            
-        for i in sentences:
-            print sentences[i]
-            for j, (word, form) in enumerate(sentences[i]):
-                print word
         
-        return sentences
+        new_sentence = []
+        for i in sentences:
+            for rule in self.shiftRules:
+                #r = rule()
+                ret = rule.shift(sentences[i])
+                if ret != False:
+                    sentences[i] = ret
+                    break
+            #sentences[i] = " ".join(sentences[i][1]);
+            
+            for j, (word, form) in enumerate(sentences[i]):
+                new_sentence.append(word)
+        return " ".join(new_sentence)
 
 '''class EnPyTenseShift(PyTenseShift):
 
