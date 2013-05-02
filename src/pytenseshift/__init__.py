@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.conf.locale import te
-
+from array import *
 from nltk.corpus import pl196x, treebank
 from nltk.tag import UnigramTagger, DefaultTagger
 from nltk.tokenize import word_tokenize as tokenize
-import en
+#import en
 # from andip import AnDiP
 # from andip.provider import FileProvider, DatabaseProvider, PlWikiProvider
 
@@ -13,19 +13,18 @@ class PyTenseShift():
     def __init__(self, corpus):
         dtag = DefaultTagger("NN")
         self.__utag = UnigramTagger(corpus.tagged_sents(), backoff = dtag)
-
     def _tokenize(self, tense):
-
         return self.__utag.tag(tokenize(tense))
 
     def getPastTense(self, tense):
+        
         """
 
         :param tense:
         :raise:
         """
         raise NotImplementedError("abstract method")
-    
+
 class PlPyTenseShift(PyTenseShift):
 
     def __init__(self):
@@ -34,13 +33,29 @@ class PlPyTenseShift(PyTenseShift):
         # self._andip = AnDiP(PlWikiProvider(),  backoff = ad1)
     
     def getPastTense(self, tense):
-
         words = self._tokenize(tense)
-
-        return words
+        sentences = {}
+        current_sentence = 0
+        sentences[current_sentence] = []
+        verb_occured = False
+        for i, (word, form) in enumerate(words):
+            if form[0] == 'C' or (word == ',' and verb_occured == True): # spójnik, mozna podzielic zdanie
+                current_sentence = current_sentence + 1
+                sentences[current_sentence] = []
+                verb_occured = False   
+            else:
+                if form[0] == 'V':
+                    verb_occured = True
+                sentences[current_sentence].append(words[i])
+            
+        for i in sentences:
+            print sentences[i]
+            for j, (word, form) in enumerate(sentences[i]):
+                print word
         
-    
-class EnPyTenseShift(PyTenseShift):
+        return sentences
+
+'''class EnPyTenseShift(PyTenseShift):
 
     def __init__(self):
         PyTenseShift.__init__(self, treebank)
@@ -98,4 +113,4 @@ class EnPyTenseShift(PyTenseShift):
             result += word;
 
         return result[1:]
-
+'''
