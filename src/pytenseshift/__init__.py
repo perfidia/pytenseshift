@@ -6,8 +6,7 @@ from nltk.tokenize import word_tokenize as tokenize
 from taggers import FirstTagger
 from rules import PlVerbAfterRule, PlVerbBeforeRule, PlPrononunBeforeRule
 #import en
-# from andip import AnDiP
-# from andip.provider import FileProvider, DatabaseProvider, PlWikiProvider
+from andip import FileProvider, DatabaseProvider, PlWikiProvider
 
 
 class PyTenseShift():
@@ -33,8 +32,9 @@ class PlPyTenseShift(PyTenseShift):
     def __init__(self):
         PyTenseShift.__init__(self, pl196x)
         self.shiftRules = {PlVerbBeforeRule(), PlPrononunBeforeRule(), PlVerbAfterRule()};
-        # ad1 = AnDiP(DatabaseProvider("../andip_tmp"))
-        # self._andip = AnDiP(PlWikiProvider(),  backoff = ad1)
+        ad1 = PlWikiProvider()
+        ad2 = DatabaseProvider("../data/polish", backoff = ad1)
+        self._andip = FileProvider("../data/polish", backoff = ad2)
     
     def getPastTense(self, tense):
         words = self._tokenize(tense)
