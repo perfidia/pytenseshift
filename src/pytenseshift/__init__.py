@@ -4,7 +4,7 @@ from nltk.corpus import pl196x, treebank
 from nltk.tag import UnigramTagger, DefaultTagger
 from nltk.tokenize import word_tokenize as tokenize
 from taggers import FirstTagger
-from rules import PlVerbAfterRule, PlVerbBeforeRule
+from rules import PlVerbAfterRule, PlVerbBeforeRule, PlPrononunBeforeRule
 #import en
 # from andip import AnDiP
 # from andip.provider import FileProvider, DatabaseProvider, PlWikiProvider
@@ -32,7 +32,7 @@ class PlPyTenseShift(PyTenseShift):
     
     def __init__(self):
         PyTenseShift.__init__(self, pl196x)
-        self.shiftRules = {PlVerbAfterRule(), PlVerbBeforeRule()};
+        self.shiftRules = {PlVerbAfterRule(), PlVerbBeforeRule(), PlPrononunBeforeRule()};
         # ad1 = AnDiP(DatabaseProvider("../andip_tmp"))
         # self._andip = AnDiP(PlWikiProvider(),  backoff = ad1)
     

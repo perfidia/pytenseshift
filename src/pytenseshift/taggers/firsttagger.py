@@ -17,6 +17,7 @@ class FirstTagger(TaggerInterface):
         
         for i, (word, form) in enumerate(words):
             word_info = {}
+            
             if form[0] == 'V': word_info['klasa'] = 'czasownik'
             elif form[0] == 'S': word_info['klasa'] = 'rzeczownik'
             elif form[0] == 'A': word_info['klasa'] = 'przymiotnik'
@@ -34,7 +35,7 @@ class FirstTagger(TaggerInterface):
             
             if(len(form) >= 3):
                 if form[2] == 'N': word_info['przypadek'] = 'mianownik'
-                elif form[2] == 'G': word_info['przypadek'] = 'dope�niacz'
+                elif form[2] == 'G': word_info['przypadek'] = 'dopełniacz'
                 elif form[2] == 'D': word_info['przypadek'] = 'celownik'
                 elif form[2] == 'A': word_info['przypadek'] = 'biernik'
                 elif form[2] == 'I': word_info['przypadek'] = 'narzędnik'
