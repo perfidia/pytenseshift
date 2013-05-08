@@ -20,10 +20,12 @@ class PyTenseShift():
         return self.tagger.tag(tense)
 
     def getPastTense(self, tense):
-        """
-
-        :param tense:
-        :raise:
+        """Translates sentence given in present tense into past tense 
+        
+        Args:
+            sentence (str): Sentence to translate
+        Returns:
+            str. Sentence in past tense
         """
         raise NotImplementedError("abstract method")
 
@@ -46,6 +48,13 @@ class PlPyTenseShift(PyTenseShift):
         self.shiftRules = {PlVerbBeforeRule(self._andip), PlPrononunBeforeRule(self._andip), PlVerbAfterRule(self._andip)};
     
     def getPastTense(self, tense):
+        """Translates sentence given in present tense into past tense 
+        
+            Args:
+                sentence (str): Sentence to translate
+            Returns:
+                str. Sentence in past tense
+        """
         words = self._tokenize(tense)
         sentences = {}
         current_sentence = 0

@@ -4,6 +4,15 @@ from shiftinterface import ShiftRule
 class PlVerbAfterRule(ShiftRule):
     
     def shift(self, sentence):
+        """Checks if there is noun after verb (translation rule) and if yes,
+            translates the sentence taking this noun into account.
+            
+            Args:
+                sentence: list of touple (word and its form) which are after verb
+            Returns:
+                list of touple (word and its PAST form) which are after verb -- if rule is satisfied
+                False -- otherwise
+        """
         # list of touple (noun and its form) which are after verb
         self.nouns_after = []
         self.verb_with_form = None

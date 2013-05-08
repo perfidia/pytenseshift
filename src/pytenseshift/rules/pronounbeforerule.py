@@ -5,6 +5,14 @@ from shiftinterface import ShiftRule
 class PlPrononunBeforeRule(ShiftRule):
     
     def shift(self, sentence):
+        """Translates sentence given in present tense into past tense if specified rule is satisfied
+            
+            Args:
+                sentence: list of touple (word and its form) which are after verb
+            Returns:
+                list of touple (word and its PAST form) which are after verb -- if rule is satisfied
+                False -- otherwise
+        """
         self.verb_with_form = None
         
         if not self._pronoun_exists(sentence):
