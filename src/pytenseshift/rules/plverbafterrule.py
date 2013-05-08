@@ -25,10 +25,12 @@ class PlVerbAfterRule(ShiftRule):
                     'liczba' : self.verb_with_form[1]['liczba'],
                     'osoba' : self.verb_with_form[1]['osoba'],
                     'aspekt' : self.verb_with_form[1]['aspekt'],
-                    'forma' : 'czas przesz≥y',
+                    'forma' : 'czas przesz≈Çy',
                     'rodzaj' : noun_lists[0][1]['rodzaj']
                     }
-            print conf
+            infinitive = self.andip.get_conf(self.verb_with_form[0])[0][1]
+            print infinitive
+            print self.andip.get_word(("czasownik", infinitive, conf))
             return False
         
         for j, (word, form) in enumerate(sentence):

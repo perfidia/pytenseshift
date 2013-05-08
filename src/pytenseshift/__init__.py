@@ -31,10 +31,19 @@ class PlPyTenseShift(PyTenseShift):
     
     def __init__(self):
         PyTenseShift.__init__(self, pl196x)
-        self.shiftRules = {PlVerbBeforeRule(), PlPrononunBeforeRule(), PlVerbAfterRule()};
         ad1 = PlWikiProvider()
         ad2 = DatabaseProvider("../data/polish", backoff = ad1)
         self._andip = FileProvider("../data/polish", backoff = ad2)
+        print self._andip.get_word(('czasownik', 'być', {'aspekt': 'niedokonane', 'forma': 'czas terazniejszy', 'liczba': 'pojedyncza', 'osoba': 'trzecia'}))
+        print self._andip.get_word(('czasownik', 'mieć', {'aspekt': 'niedokonane', 'forma': 'czas terazniejszy', 'liczba': 'pojedyncza', 'osoba': 'trzecia'}))
+        print self._andip.get_word(('czasownik', 'kupić', {'aspekt': 'dokonane', 'forma': 'czas terazniejszy', 'liczba': 'pojedyncza', 'osoba': 'trzecia'}))
+        print self._andip.get_word(('czasownik', 'skakać', {'aspekt': 'niedokonane', 'forma': 'czas terazniejszy', 'liczba': 'pojedyncza', 'osoba': 'trzecia'}))
+        print self._andip.get_conf("mamy")
+        ad2.save_model(ad1.get_model())
+        print "####"
+        print self._andip.get_word(("czasownik", "mieć", {'aspekt': 'niedokonane', 'forma': 'czas przeszly', 'liczba': 'pojedyncza', 'osoba': 'trzecia', 'rodzaj': 'meski'}))
+        print "####"
+        self.shiftRules = {PlVerbBeforeRule(self._andip), PlPrononunBeforeRule(self._andip), PlVerbAfterRule(self._andip)};
     
     def getPastTense(self, tense):
         words = self._tokenize(tense)
