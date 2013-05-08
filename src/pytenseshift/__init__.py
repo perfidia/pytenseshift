@@ -43,7 +43,7 @@ class PlPyTenseShift(PyTenseShift):
         sentences[current_sentence] = []
         verb_occured = False
         for i, (word, form) in enumerate(words):
-            if form['klasa'] == "spójnik" or (word == ',' and verb_occured == True): # spójnik, mozna podzielic zdanie
+            if (form['klasa'] == "spójnik" or word == ',') and verb_occured == True: # spójnik, mozna podzielic zdanie
                 sentences[current_sentence].append(words[i])
                 current_sentence = current_sentence + 1
                 sentences[current_sentence] = []
