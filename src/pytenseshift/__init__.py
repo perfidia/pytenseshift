@@ -32,7 +32,7 @@ class PlPyTenseShift(PyTenseShift):
     
     def __init__(self):
         PyTenseShift.__init__(self, pl196x)
-        self.shiftRules = {PlVerbAfterRule(), PlVerbBeforeRule(), PlPrononunBeforeRule()};
+        self.shiftRules = {PlVerbBeforeRule(), PlPrononunBeforeRule(), PlVerbAfterRule()};
         # ad1 = AnDiP(DatabaseProvider("../andip_tmp"))
         # self._andip = AnDiP(PlWikiProvider(),  backoff = ad1)
     
@@ -57,6 +57,7 @@ class PlPyTenseShift(PyTenseShift):
         for i in sentences:
             for rule in self.shiftRules:
                 #r = rule()
+                print sentences[i]
                 ret = rule.shift(sentences[i])
                 if ret != False:
                     sentences[i] = ret

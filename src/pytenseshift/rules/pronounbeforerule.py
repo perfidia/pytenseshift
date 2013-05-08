@@ -5,24 +5,32 @@ from shiftinterface import ShiftRule
 class PlPrononunBeforeRule(ShiftRule):
     
     def shift(self, sentence):
+        self.verb_with_form = None
         
         if not self._pronoun_exists(sentence):
             print "There is no pronoun in before verb in sentence"
             return False
         
-        self._get_past_verb(sentence)
+        if self.verb_with_form == None:
+            return False
         
-        #for j, (word, form) in enumerate(sentence):
-        #    print word, form
+        print "PRONOUN TRUE"
+        
+        conf = self._get_past_verb(sentence)
+        conf['aspekt'] = self.verb_with_form[1]['aspekt']
+        print conf
         return False
     
     def _pronoun_exists(self, sentence):
+        exists = False
+        
         for j,(word, form) in enumerate(sentence):
             if form['klasa'] == 'czasownik':
+                self.verb_with_form = (word, form)
                 break
             if form['klasa'] == 'zaimek':
-                return True
-        return False
+                exists = True
+        return exists
     
     def _get_past_verb(self, sentence):
         pronoun = ''

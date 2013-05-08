@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from shiftinterface import ShiftRule
 
 class PlVerbBeforeRule(ShiftRule):
@@ -18,12 +19,19 @@ class PlVerbBeforeRule(ShiftRule):
             return False
 
         noun_lists = self.__get_nouns_matches()
-        if len(noun_lists) > 1:
+        if len(noun_lists) != 1:
             return False
         else:
-            print "TRUE"
-            for (word, form) in noun_lists:
-                print word, form
+            print "BEFORE TRUE"
+            # configuration for anDIP
+            conf = {
+                    'liczba' : self.verb_with_form[1]['liczba'],
+                    'osoba' : self.verb_with_form[1]['osoba'],
+                    'aspekt' : self.verb_with_form[1]['aspekt'],
+                    'forma' : 'czas przeszły',
+                    'rodzaj' : noun_lists[0][1]['rodzaj']
+                    }
+            print conf
             return False
     
     def __noun_exists(self, sentence):
