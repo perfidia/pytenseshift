@@ -1,5 +1,5 @@
-.. PyTenseShift documentation master file, created by
-   sphinx-quickstart on Wed Mar 20 19:18:40 2013.
+.. pytenseshift documentation master file, created by
+   sphinx-quickstart on Wed May 08 23:32:27 2013.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -11,12 +11,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+   _static/intro
+   _static/installation
+   _static/PyTenseShift
+   _static/PlPyTenseShift
+   _static/EnPyTenseShift
