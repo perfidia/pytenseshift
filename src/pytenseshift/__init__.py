@@ -35,17 +35,20 @@ class PlPyTenseShift(PyTenseShift):
         PyTenseShift.__init__(self, pl196x)
         ad1 = PlWikiProvider()
         ad2 = DatabaseProvider("../data/polish", backoff = ad1)
-        self._andip = FileProvider("../data/polish", backoff = ad2)
-        print self._andip.get_word(('czasownik', 'być', {'aspekt': 'niedokonane', 'forma': 'czas terazniejszy', 'liczba': 'pojedyncza', 'osoba': 'trzecia'}))
-        print self._andip.get_word(('czasownik', 'mieć', {'aspekt': 'niedokonane', 'forma': 'czas terazniejszy', 'liczba': 'pojedyncza', 'osoba': 'trzecia'}))
-        print self._andip.get_word(('czasownik', 'kupić', {'aspekt': 'dokonane', 'forma': 'czas terazniejszy', 'liczba': 'pojedyncza', 'osoba': 'trzecia'}))
-        print self._andip.get_word(('czasownik', 'skakać', {'aspekt': 'niedokonane', 'forma': 'czas terazniejszy', 'liczba': 'pojedyncza', 'osoba': 'trzecia'}))
-        print self._andip.get_conf("mamy")
+        ad3 = FileProvider("../data/polish", backoff = ad2)
+        print ad1.get_word(("czasownik", "występować", {'aspekt': 'niedokonane', 'forma': 'czas teraźniejszy', 'liczba': 'mnoga', 'osoba': 'trzecia'}))
+        print ad1.get_word(("czasownik", "robić", {'aspekt': 'niedokonane', 'forma': 'czas teraźniejszy', 'liczba': 'mnoga', 'osoba': 'trzecia'}))
+        print ad1.get_word(("czasownik", "mieć", {'aspekt': 'niedokonane', 'forma': 'czas przeszły', 'liczba': 'mnoga', 'osoba': 'trzecia', 'rodzaj': 'm'}))
+        print ad1.get_conf('robiłem')
+        print ad1.get_conf('robię')
+        print ad1.get_conf('robili')
+        print ad1.get_conf('występowałam')
+        print ad1.get_conf('mieli')
         ad2.save_model(ad1.get_model())
         print "####"
-        print self._andip.get_word(("czasownik", "mieć", {'aspekt': 'niedokonane', 'forma': 'czas przeszly', 'liczba': 'pojedyncza', 'osoba': 'trzecia', 'rodzaj': 'meski'}))
+        print ad2.get_word(("czasownik", "mieć", {'rodzaj': 'm', 'forma': 'czas przeszły', 'osoba': 'pierwsza', 'aspekt': 'niedokonane', 'liczba': 'mnoga'}))
         print "####"
-        self.shiftRules = {PlVerbBeforeRule(self._andip), PlPrononunBeforeRule(self._andip), PlVerbAfterRule(self._andip)};
+        self.shiftRules = {PlVerbBeforeRule(ad2), PlPrononunBeforeRule(ad2), PlVerbAfterRule(ad2)};
     
     def getPastTense(self, tense):
         """Translates sentence given in present tense into past tense 
@@ -74,17 +77,12 @@ class PlPyTenseShift(PyTenseShift):
         new_sentence = []
         for i in sentences:
             for rule in self.shiftRules:
-                #r = rule()
-                print sentences[i]
                 ret = rule.shift(sentences[i])
                 if ret != False:
                     sentences[i] = ret
                     break
-            #sentences[i] = " ".join(sentences[i][1]);
-            
-            for j, (word, form) in enumerate(sentences[i]):
-                new_sentence.append(word)
-        return " ".join(new_sentence)
+            sentences[i] = " ".join([word for (word,form) in sentences[i]]);
+        return " ".join([value for value in sentences.values()])
 
 '''class EnPyTenseShift(PyTenseShift):
 

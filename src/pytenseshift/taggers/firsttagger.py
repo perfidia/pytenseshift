@@ -37,7 +37,7 @@ class FirstTagger(TaggerInterface):
             elif form[0] == 'T': word_info['klasa'] = 'partykuła'
             else: word_info['klasa'] = 'nieznany'
             
-            if form[1] == 'S': word_info['liczba'] = 'pojedyncza'
+            if form[1] == 'S': word_info['liczba'] = 'pojedyńcza'
             elif form[1] == 'P': word_info['liczba'] = 'mnoga'
             
             if(len(form) >= 3):
@@ -50,15 +50,15 @@ class FirstTagger(TaggerInterface):
                 elif form[2] == 'V': word_info['przypadek'] = 'wołacz'
             
             if(len(form) >= 4):
-                if form[3] == 'M': word_info['rodzaj'] = 'męski'
-                elif form[3] == 'P': word_info['rodzaj'] = 'męski'
-                elif form[3] == 'A': word_info['rodzaj'] = 'męski'
-                elif form[3] == 'I': word_info['rodzaj'] = 'męski'
-                elif form[3] == 'F': word_info['rodzaj'] = 'żeński'
-                elif form[3] == 'N': word_info['rodzaj'] = 'nijaki'
-                elif form[3] == 'O': word_info['rodzaj'] = 'męski'
-                elif form[3] == 'R': word_info['rodzaj'] = 'żeński'
-                elif form[3] == 'T': word_info['rodzaj'] = 'żeński'
+                if form[3] == 'M': word_info['rodzaj'] = 'm'
+                elif form[3] == 'P': word_info['rodzaj'] = 'm'
+                elif form[3] == 'A': word_info['rodzaj'] = 'm'
+                elif form[3] == 'I': word_info['rodzaj'] = 'm'
+                elif form[3] == 'F': word_info['rodzaj'] = 'ż'
+                elif form[3] == 'N': word_info['rodzaj'] = 'n'
+                elif form[3] == 'O': word_info['rodzaj'] = 'm'
+                elif form[3] == 'R': word_info['rodzaj'] = 'ż'
+                elif form[3] == 'T': word_info['rodzaj'] = 'ż'
             if(len(form) >= 6):
                 if form[5] == '1': word_info['osoba'] = 'pierwsza'
                 elif form[5] == '2': word_info['osoba'] = 'druga'
@@ -76,8 +76,8 @@ class FirstTagger(TaggerInterface):
                 elif form[7] == 'P': word_info['tryb'] = 'przypuszczający'
                 elif form[7] == 'R': word_info['tryb'] = 'rozkazujący'
             if(len(form) >= 9):
-                if form[8] == 'D': word_info['aspekt'] = 'dokonany'
-                elif form[8] == 'N': word_info['aspekt'] = 'niedokonany'
+                if form[8] == 'D': word_info['aspekt'] = 'dokonane'
+                elif form[8] == 'N': word_info['aspekt'] = 'niedokonane'
             
             words[i] = (words[i][0], word_info)
         

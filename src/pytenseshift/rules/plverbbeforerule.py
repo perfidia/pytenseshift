@@ -31,7 +31,6 @@ class PlVerbBeforeRule(ShiftRule):
         if len(noun_lists) != 1:
             return False
         else:
-            print "BEFORE TRUE"
             # configuration for anDIP
             conf = {
                     'liczba' : self.verb_with_form[1]['liczba'],
@@ -40,8 +39,15 @@ class PlVerbBeforeRule(ShiftRule):
                     'forma' : 'czas przeszły',
                     'rodzaj' : noun_lists[0][1]['rodzaj']
                     }
-            print conf
-            return False
+            infinitive = self.andip.get_conf(self.verb_with_form[0])[0][1]
+            
+            result = []
+            for (word, form) in sentence:
+                if form['klasa'] == 'czasownik':
+                    result.append((self.andip.get_word(("czasownik", infinitive, conf)), form))
+                else:
+                    result.append((word,form))
+            return result
     
     def __noun_exists(self, sentence):
         '''

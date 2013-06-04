@@ -38,12 +38,15 @@ class PlVerbAfterRule(ShiftRule):
                     'rodzaj' : noun_lists[0][1]['rodzaj']
                     }
             infinitive = self.andip.get_conf(self.verb_with_form[0])[0][1]
-            print infinitive
-            print self.andip.get_word(("czasownik", infinitive, conf))
-            return False
+            
+            result = []
+            for (word, form) in sentence:
+                if form['klasa'] == 'czasownik':
+                    result.append((self.andip.get_word(("czasownik", infinitive, conf)), form))
+                else:
+                    result.append((word,form))
+            return result
         
-        for j, (word, form) in enumerate(sentence):
-            pass # do all the stuff
         return False
     
     def _verb_exists(self, sentence):
