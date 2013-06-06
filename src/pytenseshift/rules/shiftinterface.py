@@ -1,3 +1,8 @@
+"""
+If you want to implement your own rules for translating polish 
+sentences into present tense into past tense you have to derived
+from this class.
+"""
 class ShiftRule():
     def __init__(self, andip):
         self.andip = andip

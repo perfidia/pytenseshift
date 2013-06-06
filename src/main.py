@@ -5,7 +5,7 @@ Created on Mar 20, 2013
 @author: Bartosz Alchimowicz
 '''
 from pytenseshift import PlPyTenseShift 
-#from pytenseshift import EnPyTenseShift
+from pytenseshift import EnPyTenseShift
 
 pl = PlPyTenseShift()
 #print pl.getPastTense("Jadę na rowerze.")
@@ -13,7 +13,7 @@ pl = PlPyTenseShift()
 print pl.getPastTense("Ja mam kota a Marek ma psa")
 print pl.getPastTense("My mamy kota a Marek ma psa")
 print pl.getPastTense("Andrzej, Maciek i Joanna kupują piwo, ser i mleko a Jacek skacze na trampolinie.")
-'''en = EnPyTenseShift()
+en = EnPyTenseShift()
 print en.getPastTense("I do not have to do it.")
 print en.getPastTense("I don't have to do it.")
 print en.getPastTense("I may do it later.")
@@ -27,9 +27,9 @@ print en.getPastTense("It can allow to do it, making sandwich.")
 print en.getPastTense("There's no need to develop the sysem like this.")
 print en.getPastTense("He does the washing every weekend while I don't do it anytime.")
 print en.getPastTense("The world is not in your books and maps. It's out there.")
-print en.getPastTense(''' '''Home is behind, the world ahead,
-And there are many paths to tread
-Through shadows to the edge of night,
-Until the stars are all alight.
-Mist and shadow, cloud and shade,
-All shall fade, all shall fade.'''#)
+#print en.getPastTense(''' '''Home is behind, the world ahead,
+#And there are many paths to tread
+#Through shadows to the edge of night,
+#Until the stars are all alight.
+#Mist and shadow, cloud and shade,
+#All shall fade, all shall fade.'''#)

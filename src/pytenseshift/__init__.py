@@ -5,19 +5,36 @@ from nltk.tag import UnigramTagger, DefaultTagger
 from nltk.tokenize import word_tokenize as tokenize
 from taggers import FirstTagger
 from rules import PlVerbAfterRule, PlVerbBeforeRule, PlPrononunBeforeRule
-#import en
+import en
 from andip import FileProvider, DatabaseProvider, PlWikiProvider
 
 
 class PyTenseShift():
 
-    def __init__(self, corpus):
-        self.tagger = FirstTagger(corpus)
-        #dtag = DefaultTagger("NN")
-        #self.__utag = UnigramTagger(corpus.tagged_sents(), backoff = dtag)
-    def _tokenize(self, tense):
-        #return self.__utag.tag(tokenize(tense))
-        return self.tagger.tag(tense)
+    """Initialization of PyTenseShift objects.
+    
+    The important part when you use the PlPyTenseShift is that
+    we allow you to implmenent your own Tagger to optimize your
+    results in translating from present to past tense. So, you need
+    to implement the taggerinterface and change the second line of
+    this code
+    """
+    def __init__(self, corpus, isPl):
+        if isPl:
+            self.tagger = FirstTagger(corpus)
+        else:
+            dtag = DefaultTagger("NN")
+            self.__utag = UnigramTagger(corpus.tagged_sents(), backoff = dtag)
+
+    """ Tokenize the input sentence into words.
+    This kind of representation is better to evaluate.
+    
+    """
+    def _tokenize(self, tense, isPl):
+        if isPl:
+            return self.tagger.tag(tense)
+        else:
+            return self.__utag.tag(tokenize(tense))
 
     def getPastTense(self, tense):
         """Translates sentence given in present tense into past tense 
@@ -31,8 +48,20 @@ class PyTenseShift():
 
 class PlPyTenseShift(PyTenseShift):
     
+    """Initialization and setting up the word bank for andip.
+    
+    Andip is a program which let us get information about every word.
+    We mean its form, tense, etc. But first we need to get configuration
+    of word we are going to use later.
+    
+    The important part of PyTenseShift project is that you can create
+    your own rules for translating polish present tense into past tense.
+    You only have to add your own Rule to shiftRules. 
+    """
     def __init__(self):
-        PyTenseShift.__init__(self, pl196x)
+        PyTenseShift.__init__(self, pl196x, True)
+        
+        # ANDIP Configuration
         ad1 = PlWikiProvider()
         ad2 = DatabaseProvider("../data/polish", backoff = ad1)
         ad3 = FileProvider("../data/polish", backoff = ad2)
@@ -45,10 +74,9 @@ class PlPyTenseShift(PyTenseShift):
         print ad1.get_conf('występowałam')
         print ad1.get_conf('mieli')
         ad2.save_model(ad1.get_model())
-        print "####"
-        print ad2.get_word(("czasownik", "mieć", {'rodzaj': 'm', 'forma': 'czas przeszły', 'osoba': 'pierwsza', 'aspekt': 'niedokonane', 'liczba': 'mnoga'}))
-        print "####"
-        self.shiftRules = {PlVerbBeforeRule(ad2), PlPrononunBeforeRule(ad2), PlVerbAfterRule(ad2)};
+        # END ANDIP Configuration
+        
+        self.shiftRules = {PlVerbBeforeRule(ad2), PlVerbAfterRule(ad2)};
     
     def getPastTense(self, tense):
         """Translates sentence given in present tense into past tense 
@@ -58,7 +86,7 @@ class PlPyTenseShift(PyTenseShift):
             Returns:
                 str. Sentence in past tense
         """
-        words = self._tokenize(tense)
+        words = self._tokenize(tense, True)
         sentences = {}
         current_sentence = 0
         sentences[current_sentence] = []
@@ -84,15 +112,15 @@ class PlPyTenseShift(PyTenseShift):
             sentences[i] = " ".join([word for (word,form) in sentences[i]]);
         return " ".join([value for value in sentences.values()])
 
-'''class EnPyTenseShift(PyTenseShift):
+class EnPyTenseShift(PyTenseShift):
 
     def __init__(self):
-        PyTenseShift.__init__(self, treebank)
+        PyTenseShift.__init__(self, treebank, False)
         self.__en = en
 
     def getPastTense(self, tense):
 
-        words = self._tokenize(tense)
+        words = self._tokenize(tense, False)
 
         for i, (word, form) in enumerate(words):
 
@@ -142,4 +170,4 @@ class PlPyTenseShift(PyTenseShift):
             result += word;
 
         return result[1:]
-'''
+
