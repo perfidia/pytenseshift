@@ -28,7 +28,6 @@ class PlVerbAfterRule(ShiftRule):
         if len(noun_lists) != 1:
             return False
         else:
-            print "AFTER TRUE"
             # configuration for anDIP
             conf = {
                     'liczba' : self.verb_with_form[1]['liczba'],

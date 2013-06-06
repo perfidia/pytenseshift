@@ -22,15 +22,17 @@ class PlPrononunBeforeRule(ShiftRule):
         if self.verb_with_form == None:
             return False
         
-        print "PRONOUN TRUE"
-        
         conf = self._get_past_verb(sentence)
         conf['aspekt'] = self.verb_with_form[1]['aspekt']
+        
         result = []
         for (word, form) in sentence:
             if form['klasa'] == 'czasownik':
-                infinitive = self.andip.get_conf(word)[0][1]
-                result.append((self.andip.get_word(("czasownik", infinitive, conf)), form))
+                try:
+                    infinitive = self.andip.get_conf(word)[0][1]
+                    result.append((self.andip.get_word(("czasownik", infinitive, conf)), form))
+                except:
+                    return False
             else:
                 result.append((word,form))
         return result

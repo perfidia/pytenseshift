@@ -65,18 +65,18 @@ class PlPyTenseShift(PyTenseShift):
         ad1 = PlWikiProvider()
         ad2 = DatabaseProvider("../data/polish", backoff = ad1)
         ad3 = FileProvider("../data/polish", backoff = ad2)
-        print ad1.get_word(("czasownik", "występować", {'aspekt': 'niedokonane', 'forma': 'czas teraźniejszy', 'liczba': 'mnoga', 'osoba': 'trzecia'}))
-        print ad1.get_word(("czasownik", "robić", {'aspekt': 'niedokonane', 'forma': 'czas teraźniejszy', 'liczba': 'mnoga', 'osoba': 'trzecia'}))
-        print ad1.get_word(("czasownik", "mieć", {'aspekt': 'niedokonane', 'forma': 'czas przeszły', 'liczba': 'mnoga', 'osoba': 'trzecia', 'rodzaj': 'm'}))
-        print ad1.get_conf('robiłem')
-        print ad1.get_conf('robię')
-        print ad1.get_conf('robili')
-        print ad1.get_conf('występowałam')
-        print ad1.get_conf('mieli')
+        ad1.get_word(("czasownik", "występować", {'aspekt': 'niedokonane', 'forma': 'czas teraźniejszy', 'liczba': 'mnoga', 'osoba': 'trzecia'}))
+        ad1.get_word(("czasownik", "robić", {'aspekt': 'niedokonane', 'forma': 'czas teraźniejszy', 'liczba': 'mnoga', 'osoba': 'trzecia'}))
+        ad1.get_word(("czasownik", "mieć", {'aspekt': 'niedokonane', 'forma': 'czas przeszły', 'liczba': 'mnoga', 'osoba': 'trzecia', 'rodzaj': 'm'}))
+        #print ad1.get_conf('robiłem')
+        #print ad1.get_conf('robię')
+        #print ad1.get_conf('robili')
+        #print ad1.get_conf('występowałam')
+        #print ad1.get_conf('mamy')
         ad2.save_model(ad1.get_model())
         # END ANDIP Configuration
         
-        self.shiftRules = {PlVerbBeforeRule(ad2), PlVerbAfterRule(ad2)};
+        self.shiftRules = {PlVerbBeforeRule(ad2), PlPrononunBeforeRule(ad2), PlVerbAfterRule(ad2)};
     
     def getPastTense(self, tense):
         """Translates sentence given in present tense into past tense 
