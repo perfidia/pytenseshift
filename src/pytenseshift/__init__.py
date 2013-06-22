@@ -5,11 +5,11 @@ from nltk.tag import UnigramTagger, DefaultTagger
 from nltk.tokenize import word_tokenize as tokenize
 from taggers import FirstTagger
 from rules import PlVerbAfterRule, PlVerbBeforeRule, PlPrononunBeforeRule
-import en
+from src import en
 from andip import FileProvider, DatabaseProvider, PlWikiProvider
 
 
-class PyTenseShift():
+class PyTenseShift(object):
 
     """Initialization of PyTenseShift objects.
     

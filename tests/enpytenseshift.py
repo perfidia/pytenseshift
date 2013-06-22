@@ -2,7 +2,7 @@
 
 import unittest
 
-from pytenseshift import EnPyTenseShift
+from src.pytenseshift import EnPyTenseShift
 
 class EnPyTenseShiftTests(unittest.TestCase):
     @classmethod
