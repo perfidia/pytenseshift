@@ -58,21 +58,16 @@ class PlPyTenseShift(PyTenseShift):
     your own rules for translating polish present tense into past tense.
     You only have to add your own Rule to shiftRules. 
     """
-    def __init__(self):
+    def __init__(self, database_path = "../data/polish"):
         PyTenseShift.__init__(self, pl196x, True)
         
         # ANDIP Configuration
         ad1 = PlWikiProvider()
-        ad2 = DatabaseProvider("../data/polish", backoff = ad1)
-        ad3 = FileProvider("../data/polish", backoff = ad2)
+        ad2 = DatabaseProvider(database_path, backoff = ad1)
+        ad3 = FileProvider(database_path, backoff = ad2)
         ad1.get_word(("czasownik", "występować", {'aspekt': 'niedokonane', 'forma': 'czas teraźniejszy', 'liczba': 'mnoga', 'osoba': 'trzecia'}))
         ad1.get_word(("czasownik", "robić", {'aspekt': 'niedokonane', 'forma': 'czas teraźniejszy', 'liczba': 'mnoga', 'osoba': 'trzecia'}))
         ad1.get_word(("czasownik", "mieć", {'aspekt': 'niedokonane', 'forma': 'czas przeszły', 'liczba': 'mnoga', 'osoba': 'trzecia', 'rodzaj': 'm'}))
-        #print ad1.get_conf('robiłem')
-        #print ad1.get_conf('robię')
-        #print ad1.get_conf('robili')
-        #print ad1.get_conf('występowałam')
-        #print ad1.get_conf('mamy')
         ad2.save_model(ad1.get_model())
         # END ANDIP Configuration
         
