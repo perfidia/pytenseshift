@@ -3,8 +3,8 @@ from array import *
 from nltk.corpus import pl196x, treebank
 from nltk.tag import UnigramTagger, DefaultTagger
 from nltk.tokenize import word_tokenize as tokenize
-from taggers import FirstTagger
-from rules import PlVerbAfterRule, PlVerbBeforeRule, PlPrononunBeforeRule
+from pytenseshift.taggers import FirstTagger
+from pytenseshift.rules import PlVerbAfterRule, PlVerbBeforeRule, PlPrononunBeforeRule
 import en
 from andip import FileProvider, DatabaseProvider, PlWikiProvider
 
