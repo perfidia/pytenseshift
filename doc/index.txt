@@ -13,6 +13,4 @@ Contents:
 
    _static/intro
    _static/installation
-   _static/PyTenseShift
-   _static/PlPyTenseShift
-   _static/EnPyTenseShift
+   _static/API
