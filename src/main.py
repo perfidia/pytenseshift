@@ -4,8 +4,8 @@ Created on Mar 20, 2013
 
 @author: Bartosz Alchimowicz
 '''
-from pytenseshift import PlPyTenseShift 
-from pytenseshift import EnPyTenseShift
+from src.pytenseshift import PlPyTenseShift 
+from src.pytenseshift import EnPyTenseShift
 
 pl = PlPyTenseShift()
 #print pl.getPastTense("Jadę na rowerze.")
